@@ -68,14 +68,18 @@ output * bg ~/Pictures/Wallpapers/wallpaper1.jpg fill
 # You can also configure each device individually.
 # Read `man 5 sway-input` for more information about this section.
 set $mouse_id "usb:1532:0084"
-exec swaymsg input $mouse_id accel_profile "flat"
 
 input type:pointer {
     left_handed false
     natural_scroll disabled
     dwt enabled
     accel_profile "flat" # disable mouse acceleration (enabled by default; to set it manually, use "adaptive" instead of "flat")
-    pointer_accel -0.8 # set mouse sensitivity (between -1 and 1)
+    pointer_accel 1 # set mouse sensitivity (between -1 and 1)
+}
+
+input type:keyboard {
+	xkb_layout "us,es"
+	xkb_options "grp:alt_shift_toggle"
 }
 
 exec timedatectl set-timezone "America/Hermosillo"
@@ -108,6 +112,8 @@ exec timedatectl set-timezone "America/Hermosillo"
     # Change normal to inverse to use left mouse button for resizing and right
     # mouse button for dragging.
     floating_modifier $mod normal
+
+    for_window [title="Picture in picture"] floating enable, sticky enable
 
     # Reload the configuration file
     bindsym $mod+Shift+c reload
